@@ -8,9 +8,6 @@ module Enumerable
         end
         return num
     end
-    # my_each([1,2,3,4]) do |x|
-        # x * 2
-    # end
 
     def my_each_with_index(array)
         num = []

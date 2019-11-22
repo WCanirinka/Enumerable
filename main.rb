@@ -25,8 +25,8 @@ module Enumerable
     num = []
     x = 0
     while x < array.length
-      if num << array[x]
-        yield(array[x])
+      if array[x]
+        num << yield(array[x])
       end
       x += 1
     end

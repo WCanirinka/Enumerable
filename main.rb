@@ -68,4 +68,14 @@ module Enumerable
     end
     num
   end
+
+  def my_map(array)
+    num = []
+    x = 0
+    while x < array.length
+      num << array[x]
+      x += 1
+    end
+    num
+  end
 end

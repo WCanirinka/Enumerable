@@ -101,12 +101,12 @@ module Enumerable
   end
 
   def multiply_els(array)
-    return my_inject(array) do |result, i|
+    my_inject(array) do |result, i|
       result * i
     end
   end
 
-  def my_map(array, prc)
+  def my_map_proc(array, prc)
     num = []
     x = 0
     while x < array.length

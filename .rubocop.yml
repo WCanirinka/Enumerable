@@ -28,6 +28,8 @@ Style/CaseEquality:
   Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
 
 Layout/AlignHash:
   EnforcedColonStyle: key

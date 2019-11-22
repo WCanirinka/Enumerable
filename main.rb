@@ -37,7 +37,7 @@ module Enumerable
     num = true
     x = 0
     while x < array.length
-      if !yield(array[x])
+      unless yield(array[x])
         num = false
       end
       x += 1

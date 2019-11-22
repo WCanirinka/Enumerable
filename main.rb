@@ -45,6 +45,17 @@ module Enumerable
     num
   end
 
+  def my_any?(array)
+    x = 0
+    while x < array.length
+      if yield(array[x])
+        true
+      end
+      x += 1
+    end
+    false
+  end
+
   def my_none?(array)
     num = false
     x = 0
@@ -74,6 +85,32 @@ module Enumerable
     x = 0
     while x < array.length
       num << array[x]
+      x += 1
+    end
+    num
+  end
+
+  def my_inject(array)
+    num = array[0]
+    x = 0
+    while x < array.length
+      num = yield(num, array[x])
+      x += 1
+    end
+    num
+  end
+
+  def multiply_els(array)
+    return my_inject(array) do |result, i|
+      result * i
+    end
+  end
+
+  def my_map(array, prc)
+    num = []
+    x = 0
+    while x < array.length
+      num << prc.call(array[x])
       x += 1
     end
     num

@@ -106,11 +106,25 @@ module Enumerable
     end
   end
 
-  def my_map_proc(array, prc)
+  def my_map_pro(array, pro)
     num = []
     x = 0
     while x < array.length
-      num << prc.call(array[x])
+      num << pro.call(array[x])
+      x += 1
+    end
+    num
+  end
+
+  def my_map_proc(array, pro)
+    num = []
+    x = 0
+    while x < array.length
+      if block_given?
+        num << yield(array[x])
+      else
+        num << pro.call(array[x])
+      end
       x += 1
     end
     num

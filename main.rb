@@ -121,11 +121,11 @@ module Enumerable
     x = 0
     while x < array.length
       if block_given?
-        num << yield(array[x])
+        yield(array[x])
       else
         num << pro.call(array[x])
       end
-      return x += 1
+      x += 1
     end
     num
   end

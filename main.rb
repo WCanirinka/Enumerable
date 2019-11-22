@@ -127,6 +127,6 @@ module Enumerable
       end
       x += 1
     end
-    num
+    return num
   end
 end

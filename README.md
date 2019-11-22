@@ -26,7 +26,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-  This is Wilfried and Tresor. We are part of the Microverse Program and we created this project as our first Ruby Project
+  This is Wilfried. We are part of the Microverse Program and we created this project as our first Ruby Project
 
 ### Contact
 * Wilfried Canirinka :man: - [@WCanirinka](https://twitter.com/WCanirinka)  - [LinkedIn](https://www.linkedin.com/in/wilfried-canirinka-884ab0b6/) - [GitHub](https://github.com/WCanirinka)

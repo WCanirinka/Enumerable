@@ -26,6 +26,8 @@ Style/ClassAndModuleChildren:
   Enabled: false
 Style/CaseEquality:
   Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 
 Layout/AlignHash:
   EnforcedColonStyle: key

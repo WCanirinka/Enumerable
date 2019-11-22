@@ -24,7 +24,24 @@ module Enumerable
   def my_select(array)
     num = []
     x = 0
-    x += 1 while x < array.length
-    num << array[x] if yield(array[x])
+    while x < array.length
+      if yield(array[x])
+        num << array[x]
+      end
+      x += 1
+    end
+    num
+  end
+
+  def my_all?(array)
+    num = true
+    x = 0
+    while x < array.length
+      if !yield(array[x])
+        num = false
+      end
+      x += 1
+    end
+    num
   end
 end

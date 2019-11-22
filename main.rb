@@ -125,8 +125,8 @@ module Enumerable
       else
         num << pro.call(array[x])
       end
-      x += 1
+      return x += 1
     end
-    return num
+    num
   end
 end

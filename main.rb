@@ -21,7 +21,7 @@ module Enumerable
 
   def my_select(array)
     num = []
-    i\x = 0
+    x = 0
     while x < array.length
       if yield(array[x])
         num << array[x]

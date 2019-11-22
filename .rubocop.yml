@@ -27,7 +27,6 @@ Style/ClassAndModuleChildren:
 Style/CaseEquality:
   Enabled: false
 
-
 Layout/AlignHash:
   EnforcedColonStyle: key
 Layout/ExtraSpacing:

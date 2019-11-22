@@ -44,4 +44,16 @@ module Enumerable
     end
     num
   end
+
+  def my_none?(array)
+    num = false
+    x = 0
+    while x < array.length
+      if yield(array[x])
+        num = true
+      end
+      x += 1
+    end
+    num
+  end
 end

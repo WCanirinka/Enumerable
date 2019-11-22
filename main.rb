@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 module Enumerable
   def my_each(array)
     num = []
@@ -6,7 +8,7 @@ module Enumerable
       num << yield(array[x])
       x += 1
     end
-    return num
+    num
   end
 
   def my_each_with_index(array)
@@ -16,7 +18,7 @@ module Enumerable
       num << yield(array[x], x)
       x += 1
     end
-    return num
+    num
   end
 
   def my_select(array)
@@ -28,6 +30,6 @@ module Enumerable
       end
       x += 1
     end
-    return num
+    num
   end
 end

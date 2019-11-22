@@ -116,7 +116,7 @@ module Enumerable
     num
   end
 
-  def my_map_proc(array, pro)
+  def my_map_proc(array, pro = nil)
     num = []
     x = 0
     while x < array.length

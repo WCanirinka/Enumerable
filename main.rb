@@ -56,4 +56,16 @@ module Enumerable
     end
     num
   end
+
+  def my_count(array)
+    num = 0
+    x = 0
+    while x < array.length
+      if yield(array[x])
+        num += 1
+      end
+      x += 1
+    end
+    num
+  end
 end

@@ -24,7 +24,7 @@ module Enumerable
   end
 
   def my_select
-    return to_enum(method = :my_select) unless !block_given?
+    return to_enum(method = :my_select) if !block_given?
 
     arr = []
     x = 0

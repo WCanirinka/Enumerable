@@ -128,4 +128,3 @@ module Enumerable
     [result, sym]
   end
 end
-

@@ -24,7 +24,7 @@ module Enumerable
   end
 
   def my_select
-    return to_enum(method = :my_each) if !block_given?
+    return to_enum(:my_each) if !block_given?
 
     arr = []
     x = 0
@@ -52,7 +52,7 @@ module Enumerable
   def my_any?(pat = nil)
     result = false
     if block_given?
-      my_each { |ele| result = true if (yield ele) }
+      my_each { |ele| result = true if yield ele }
     elsif pat
       my_each { |ele| result = true if pattern?(ele, pattern) }
     else
@@ -64,7 +64,7 @@ module Enumerable
   def my_none?(pat = nil)
     result = true
     if block_given?
-      my_each { |ele| result = false if (yield ele) }
+      my_each { |ele| result = false if yield ele }
     elsif pat
       my_each { |ele| result = false if pattern?(ele, pat) }
     else
@@ -128,3 +128,5 @@ module Enumerable
     [result, sym]
   end
 end
+ar = [1,2,3,4,5,6]
+p ar.my_each

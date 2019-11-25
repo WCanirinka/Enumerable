@@ -24,12 +24,12 @@ module Enumerable
   end
 
   def my_select
-    return to_enum(method = :my_select) if !block_given?
+    return to_enum(method = :my_select) unless !block_given?
 
     arr = []
     x = 0
     while x < self.length
-      unless yield(self[x])
+      if yield(self[x])
         arr << self[x]
       end
       x += 1
@@ -40,11 +40,11 @@ module Enumerable
   def my_all?(pattern = nil)
     result = true
     if block_given?
-      my_each{|ele| result &= (yield ele)}
+      my_each{ |ele| result &= (yield ele) }
     elsif pattern
-      my_each{|ele| result &= pattern === ele}
+      my_each{ |ele| result &= pattern === ele }
     else
-      my_each {|ele| result &= ele}
+      my_each { |ele| result &= ele }
     end
     result
   end
@@ -52,11 +52,11 @@ module Enumerable
   def my_any?(pattern = nil)
     result = false
     if block_given?
-      my_each{|ele| result = (yield ele)}
+      my_each{ |ele| result = (yield ele) }
     elsif pattern
-      my_each{|ele| result = pattern === ele}
+      my_each{ |ele| result = pattern === ele }
     else
-      my_each {|ele| result = ele}
+      my_each { |ele| result = ele }
     end
     result
   end
@@ -64,11 +64,11 @@ module Enumerable
   def my_none?(pattern = nil)
     result = true
     if block_given?
-      my_each{|ele| result &= !(yield ele)}
+      my_each{ |ele| result &= !(yield ele) }
     elsif pattern
-      my_each{|ele| result &= pattern != ele}
+      my_each{ |ele| result &= pattern != ele }
     else
-      my_each {|ele| result &= !ele}
+      my_each { |ele| result &= !ele }
     end
     result
   end
@@ -76,12 +76,12 @@ module Enumerable
   def my_count(arg = nil)
     count = 0
     if block_given?
-      my_each{|x| count += 1 if yield(x)}
-      elsif arg
-        my_each{|x| count += 1 if x == arg}
-      else
-        count = length
-      end
+      my_each{ |x| count += 1 if yield(x) }
+    elsif arg
+      my_each{ |x| count += 1 if x == arg }
+    else
+      count = length
+    end
       count
   end
 
@@ -90,9 +90,9 @@ module Enumerable
 
     new_arr = []
     if block_given?
-      my_each{|x| new_arr << yield(x)}
+      my_each{ |x| new_arr << yield(x) }
     else
-      my_each{|x| new_arr << param.call(x)}
+      my_each{ |x| new_arr << param.call(x) }
     end
     new_arr
   end
@@ -110,13 +110,13 @@ module Enumerable
   end
 
   def multiply_els
-    my_inject{|x, y| x * y}
+    my_inject{ |x, y| x * y }
   end
 
   def inj_param(*args)
     result, sym = nil
     args.my_each do |arg|
-      result  = arg if arg.is_a? Numeric
+      result = arg if arg.is_a? Numeric
       sym = arg unless arg.is_a? Numeric
     end
     [result, sym]

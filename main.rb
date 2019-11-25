@@ -110,7 +110,7 @@ module Enumerable
   end
 
   def multiply_els
-    my_inject{ |x, y| x * y }
+    my_inject { |x, y| x * y }
   end
 
   def inj_param(*args)

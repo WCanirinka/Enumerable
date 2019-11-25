@@ -30,6 +30,9 @@ Style/IfUnlessModifier:
   Enabled: false
 Metrics/ModuleLength:
   Enabled: false
+Style/NegatedIf:
+  Enabled: false
+
 
 Layout/AlignHash:
   EnforcedColonStyle: key

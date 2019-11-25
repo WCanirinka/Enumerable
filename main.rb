@@ -128,5 +128,3 @@ module Enumerable
     [result, sym]
   end
 end
-ar = [1,2,3,4,5,6]
-p ar.my_each

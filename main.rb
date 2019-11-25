@@ -3,6 +3,7 @@
 module Enumerable
   def my_each
     return to_enum unless block_given?
+
     x = 0
     while x < self.length
       yield(self[x])
@@ -13,6 +14,7 @@ module Enumerable
 
   def my_each_with_index
     return to_enum unless block_given?
+
     x = 0
     while x < self.length
       yield(self[x], x)
@@ -23,10 +25,11 @@ module Enumerable
 
   def my_select
     return to_enum(method = :my_select) if !block_given?
+
     arr = []
     x = 0
     while x < self.length
-      if yield(self[x])
+      unless yield(self[x])
         arr << self[x]
       end
       x += 1
@@ -84,6 +87,7 @@ module Enumerable
 
   def my_map(param = nil)
     return to_enum unless block_given?
+
     new_arr = []
     if block_given?
       my_each{|x| new_arr << yield(x)}

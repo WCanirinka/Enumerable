@@ -32,6 +32,10 @@ Metrics/ModuleLength:
   Enabled: false
 Style/NegatedIf:
   Enabled: false
+Style/RedundantSelf:
+  Enabled: false
+Style/NegatedUnless:
+  Enabled: false
 
 
 Layout/AlignHash:

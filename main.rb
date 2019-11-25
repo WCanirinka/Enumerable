@@ -1,132 +1,120 @@
 # frozen_string_literal: false
 
 module Enumerable
-  def my_each(array)
-    num = []
+  def my_each
+    return to_enum unless block_given?
     x = 0
-    while x < array.length
-      num << yield(array[x])
+    while x < self.length
+      yield(self[x])
       x += 1
     end
-    num
+    self
   end
 
-  def my_each_with_index(array)
-    num = []
+  def my_each_with_index
+    return to_enum unless block_given?
     x = 0
-    while x < array.length
-      num << yield(array[x], x)
+    while x < self.length
+      yield(self[x], x)
       x += 1
     end
-    num
+    self
   end
 
-  def my_select(array)
-    num = []
+  def my_select
+    return to_enum(method = :my_select) if !block_given?
+    arr = []
     x = 0
-    while x < array.length
-      if yield(array[x])
-        num << array[x]
+    while x < self.length
+      if yield(self[x])
+        arr << self[x]
       end
       x += 1
     end
-    num
+    arr
   end
 
-  def my_all?(array)
-    num = true
-    x = 0
-    while x < array.length
-      unless yield(array[x])
-        num = false
-      end
-      x += 1
+  def my_all?(pattern = nil)
+    result = true
+    if block_given?
+      my_each{|ele| result &= (yield ele)}
+    elsif pattern
+      my_each{|ele| result &= pattern === ele}
+    else
+      my_each {|ele| result &= ele}
     end
-    num
+    result
   end
 
-  def my_any?(array)
-    x = 0
-    while x < array.length
-      if yield(array[x])
-        true
-      end
-      x += 1
+  def my_any?(pattern = nil)
+    result = false
+    if block_given?
+      my_each{|ele| result = (yield ele)}
+    elsif pattern
+      my_each{|ele| result = pattern === ele}
+    else
+      my_each {|ele| result = ele}
     end
-    false
+    result
   end
 
-  def my_none?(array)
-    num = false
-    x = 0
-    while x < array.length
-      if yield(array[x])
-        num = true
-      end
-      x += 1
+  def my_none?(pattern = nil)
+    result = true
+    if block_given?
+      my_each{|ele| result &= !(yield ele)}
+    elsif pattern
+      my_each{|ele| result &= pattern != ele}
+    else
+      my_each {|ele| result &= !ele}
     end
-    num
+    result
   end
 
-  def my_count(array)
-    num = 0
-    x = 0
-    while x < array.length
-      if yield(array[x])
-        num += 1
-      end
-      x += 1
-    end
-    num
-  end
-
-  def my_map(array)
-    num = []
-    x = 0
-    while x < array.length
-      num << array[x]
-      x += 1
-    end
-    num
-  end
-
-  def my_inject(array)
-    num = array[0]
-    x = 0
-    while x < array.length
-      num = yield(num, array[x])
-      x += 1
-    end
-    num
-  end
-
-  def multiply_els(array)
-    my_inject(array) do |result, i|
-      result * i
-    end
-  end
-
-  def my_map_pro(array, pro)
-    num = []
-    x = 0
-    while x < array.length
-      num << pro.call(array[x])
-      x += 1
-    end
-    num
-  end
-
-  def my_map_proc(array, pro = nil)
-    num = []
-    x = 0
-    while x < array.length
-      if block_given?
-        yield(array[x])
+  def my_count(arg = nil)
+    count = 0
+    if block_given?
+      my_each{|x| count += 1 if yield(x)}
+      elsif arg
+        my_each{|x| count += 1 if x == arg}
       else
-        num << pro.call(array[x])
+        count = length
       end
-      x += 1
+      count
+  end
+
+  def my_map(param = nil)
+    return to_enum unless block_given?
+    new_arr = []
+    if block_given?
+      my_each{|x| new_arr << yield(x)}
+    else
+      my_each{|x| new_arr << param.call(x)}
     end
-    num
+    new_arr
+  end
+
+  def my_inject(*args)
+    result, sym = inj_param(*args)
+    arr = result ? to_a : to_a[1..-1]
+    result ||= to_a[0]
+    if block_given?
+      arr.my_each { |x| result = yield(result, x) }
+    elsif sym
+      arr.my_each { |x| result = result.public_send(sym, x) }
+    end
+    result
+  end
+
+  def multiply_els
+    my_inject{|x, y| x * y}
+  end
+
+  def inj_param(*args)
+    result, sym = nil
+    args.my_each do |arg|
+      result  = arg if arg.is_a? Numeric
+      sym = arg unless arg.is_a? Numeric
+    end
+    [result, sym]
   end
 end

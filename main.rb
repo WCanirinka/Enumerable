@@ -40,9 +40,9 @@ module Enumerable
   def my_all?(pattern = nil)
     result = true
     if block_given?
-      my_each{ |ele| result &= (yield ele) }
+      my_each { |ele| result &= (yield ele) }
     elsif pattern
-      my_each{ |ele| result &= pattern === ele }
+      my_each { |ele| result &= pattern === ele }
     else
       my_each { |ele| result &= ele }
     end
@@ -52,9 +52,9 @@ module Enumerable
   def my_any?(pattern = nil)
     result = false
     if block_given?
-      my_each{ |ele| result = (yield ele) }
+      my_each { |ele| result = (yield ele) }
     elsif pattern
-      my_each{ |ele| result = pattern === ele }
+      my_each { |ele| result = pattern === ele }
     else
       my_each { |ele| result = ele }
     end
@@ -64,9 +64,9 @@ module Enumerable
   def my_none?(pattern = nil)
     result = true
     if block_given?
-      my_each{ |ele| result &= !(yield ele) }
+      my_each { |ele| result &= !(yield ele) }
     elsif pattern
-      my_each{ |ele| result &= pattern != ele }
+      my_each { |ele| result &= pattern != ele }
     else
       my_each { |ele| result &= !ele }
     end
@@ -76,13 +76,13 @@ module Enumerable
   def my_count(arg = nil)
     count = 0
     if block_given?
-      my_each{ |x| count += 1 if yield(x) }
+      my_each { |x| count += 1 if yield(x) }
     elsif arg
-      my_each{ |x| count += 1 if x == arg }
+      my_each { |x| count += 1 if x == arg }
     else
       count = length
     end
-      count
+    count
   end
 
   def my_map(param = nil)
@@ -90,9 +90,9 @@ module Enumerable
 
     new_arr = []
     if block_given?
-      my_each{ |x| new_arr << yield(x) }
+      my_each { |x| new_arr << yield(x) }
     else
-      my_each{ |x| new_arr << param.call(x) }
+      my_each { |x| new_arr << param.call(x) }
     end
     new_arr
   end

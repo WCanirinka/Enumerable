@@ -54,7 +54,7 @@ module Enumerable
     if block_given?
       my_each { |ele| result = true if yield ele }
     elsif pat
-      my_each { |ele| result = true if pattern?(ele, pattern) }
+      my_each { |ele| result = true if pattern?(ele, pat) }
     else
       my_each { |ele| result = true if ele }
     end
@@ -128,3 +128,4 @@ module Enumerable
     [result, sym]
   end
 end
+

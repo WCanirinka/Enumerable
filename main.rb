@@ -24,7 +24,7 @@ module Enumerable
   end
 
   def my_select
-    return to_enum(method) if !block_given?
+    return to_enum(method :my_each) if !block_given?
 
     arr = []
     x = 0
@@ -37,38 +37,38 @@ module Enumerable
     arr
   end
 
-  def my_all?(pattern = nil)
+  def my_all?(pat = nil)
     result = true
     if block_given?
       my_each { |ele| result &= (yield ele) }
-    elsif pattern
-      my_each { |ele| result &= pattern === ele }
+    elsif pat
+      my_each { |ele| result &= pat === ele }
     else
       my_each { |ele| result &= ele }
     end
     result
   end
 
-  def my_any?(pattern = nil)
+  def my_any?(pat = nil)
     result = false
     if block_given?
-      my_each { |ele| result = (yield ele) }
-    elsif pattern
-      my_each { |ele| result = pattern === ele }
+      my_each { |ele| result = true if (yield ele) }
+    elsif pat
+      my_each { |ele| result = true if pattern?(ele, pattern) }
     else
-      my_each { |ele| result = ele }
+      my_each { |ele| result = true if ele }
     end
     result
   end
 
-  def my_none?(pattern = nil)
+  def my_none?(pat = nil)
     result = true
     if block_given?
-      my_each { |ele| result &= !(yield ele) }
-    elsif pattern
-      my_each { |ele| result &= pattern != ele }
+      my_each { |ele| result = false if (yield ele) }
+    elsif pat
+      my_each { |ele| result = false if pattern?(ele, pat) }
     else
-      my_each { |ele| result &= !ele }
+      my_each { |ele| result = false if ele }
     end
     result
   end
@@ -111,6 +111,12 @@ module Enumerable
 
   def multiply_els
     my_inject { |x, y| x * y }
+  end
+
+  def pattern?(obj, pat)
+    (obj.respond_to?(:eql?) && obj.eql?(pat)) ||
+      (pat.is_a?(Class) && obj.is_a?(pat)) ||
+      (pat.is_a?(Regexp) && pat.match(obj))
   end
 
   def inj_param(*args)
